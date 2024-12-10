@@ -24,7 +24,6 @@ const VideoValueItem = ({
       style={{
         flexDirection: 'row',
         display: 'flex',
-        borderWidth: 1,
         width: '100%',
         justifyContent: 'space-around',
         marginTop: 20,
