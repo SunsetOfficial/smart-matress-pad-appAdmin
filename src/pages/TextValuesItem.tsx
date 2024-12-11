@@ -1,5 +1,8 @@
-import { Dispatch, SetStateAction } from 'react';
-import { Link } from 'react-router-dom';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { useState } from 'react';
+import content from '../lib.d';
 
 interface ITextValuesItem {
   img: string;
@@ -7,6 +10,7 @@ interface ITextValuesItem {
   setValue: Dispatch<SetStateAction<string>>;
   placeholder: string;
   onSave: () => void;
+  index: string;
 }
 
 const TextValuesItem = ({
@@ -15,43 +19,76 @@ const TextValuesItem = ({
   setValue,
   placeholder,
   onSave,
+  index,
 }: ITextValuesItem) => {
-  const onChange = (e: { target: { value: SetStateAction<string> } }) => {
-    setValue(e.target.value);
+  const [disabled, setDisabled] = useState(true);
+
+  const getInitValue = async () => {
+    const URL =
+      'http://load-balancer-api-403884515.us-east-2.elb.amazonaws.com';
+    const endpoint = '/static-text';
+    const req = await fetch(URL + endpoint + '/' + index, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
+    const data = await req.json();
+    if (data.content) {
+      setValue(data.content);
+    }
   };
+
+  useEffect(() => {
+    getInitValue();
+  }, []);
+
   return (
     <div
       style={{
-        flexDirection: 'row',
-        display: 'flex',
         width: '100%',
-        justifyContent: 'space-around',
         marginTop: 20,
         marginBottom: 20,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#eaeaea',
       }}
     >
       <div>
         <label className="mb-2.5 block text-black dark:text-white">
           {placeholder}
         </label>
-        {value.length > 0 && (
-          <div
-            onClick={onSave}
-            className="inline-flex items-center justify-center bg-black py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
-          >
-            Save
-          </div>
-        )}
+        <div>
+          <ReactQuill
+            theme="snow"
+            value={value}
+            onChange={(val) => {
+              const plainText = val.replace(/<\/?[^>]+(>|$)/g, '');
+              if (plainText.length == 0) {
+                setDisabled(true);
+              } else {
+                setDisabled(false);
+              }
+              setValue(val);
+            }}
+            style={{ width: 500, height: 200 }}
+          />
+        </div>
+        <button
+          onClick={disabled ? () => {} : onSave}
+          style={{
+            marginTop: 50,
+            backgroundColor: disabled ? '#eaeaea' : 'black',
+          }}
+          className="inline-flex items-center justify-center py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+        >
+          Save
+        </button>
       </div>
-      <input
-        value={value}
-        onChange={onChange}
-        type="text"
-        placeholder={placeholder}
-        style={{ minHeight: 60, width: 500 }}
-        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-      />
-      <img src={img} style={{ width: 124, height: 256 }} />
+      <img src={img} style={{ width: 180, objectFit: 'contain' }} />
     </div>
   );
 };

@@ -99,9 +99,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <ul className="mb-6 flex flex-col gap-1.5">
             <li>
                 <NavLink
-                  to="/textValues"
+                  to="/smart-matress-pad-appAdmin/textValues"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('textValues') &&
+                    pathname.includes('smart-matress-pad-appAdmin/textValues') &&
                     'bg-graydark dark:bg-meta-4'
                   }`}
                 >
@@ -122,7 +122,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </NavLink>
               </li> <li>
                 <NavLink
-                  to="/videoValues"
+                  to="/smart-matress-pad-appAdmin/videoValues"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes('videoValues') &&
                     'bg-graydark dark:bg-meta-4'
