@@ -1,8 +1,7 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useState } from 'react';
-import content from '../lib.d';
 
 interface ITextValuesItem {
   img: string;
@@ -25,23 +24,45 @@ const TextValuesItem = ({
 
   const getInitValue = async () => {
     const URL =
-      'http://load-balancer-api-403884515.us-east-2.elb.amazonaws.com';
-    const endpoint = '/static-text';
-    const req = await fetch(URL + endpoint + '/' + index, {
+      'http://load-balancer-api-403884515.us-east-2.elb.amazonaws.com/static-text/';
+    const req = await fetch(URL + index, {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
       },
     });
     const data = await req.json();
-    if (data.content) {
+    if (!!data.content) {
       setValue(data.content);
+    } else {
+      setValue('');
     }
   };
 
   useEffect(() => {
     getInitValue();
   }, []);
+
+  const toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block'],
+    ['link', 'image', 'video', 'formula'],
+  
+    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+    [{ 'direction': 'rtl' }],                         // text direction
+  
+    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'font': [] }],
+    [{ 'align': [] }],
+  
+    ['clean']                                         // remove formatting button
+  ];
 
   return (
     <div
@@ -63,6 +84,9 @@ const TextValuesItem = ({
         </label>
         <div>
           <ReactQuill
+            modules={{
+              toolbar: toolbarOptions, // Selector for toolbar container
+            }}
             theme="snow"
             value={value}
             onChange={(val) => {
@@ -80,7 +104,7 @@ const TextValuesItem = ({
         <button
           onClick={disabled ? () => {} : onSave}
           style={{
-            marginTop: 50,
+            marginTop: 100,
             backgroundColor: disabled ? '#eaeaea' : 'black',
           }}
           className="inline-flex items-center justify-center py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
