@@ -30,15 +30,7 @@ function App() {
       <Routes>
         <Route
           index
-          element={
-            <>
-              <PageTitle title="eCommerce Dashboard | SunsetAdmin" />
-              <ECommerce />
-            </>
-          }
-        />
-        <Route
-          path="/textValues"
+          path="/smart-matress-pad-appAdmin/textValues"
           element={
             <>
               <PageTitle title="TextValues" />
@@ -47,38 +39,11 @@ function App() {
           }
         />
         <Route
-          path="/videoValues"
+          path="/smart-matress-pad-appAdmin/videoValues"
           element={
             <>
               <PageTitle title="VideoValues" />
               <VideoValues />
-            </>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <>
-              <PageTitle title="Settings | SunsetAdmin" />
-              <Settings />
-            </>
-          }
-        />
-        <Route
-          path="/auth/signin"
-          element={
-            <>
-              <PageTitle title="Signin | SunsetAdmin" />
-              <SignIn />
-            </>
-          }
-        />
-        <Route
-          path="/auth/signup"
-          element={
-            <>
-              <PageTitle title="Signup | SunsetAdmin" />
-              <SignUp />
             </>
           }
         />

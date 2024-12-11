@@ -24,6 +24,7 @@ const TextValues = () => {
             placeholder="Enter Pairing Mode Gray Small Text"
             value={EnterPairingModeGrayText}
             setValue={setEnterPairingModeGrayText}
+            index={'EnterPairingModeGrayText'}
             onSave={() =>
               setTextValue(EnterPairingModeGrayText, 'EnterPairingModeGrayText')
             }
@@ -33,6 +34,7 @@ const TextValues = () => {
             placeholder="Matress Text Instructions"
             value={MatressTextInstructions}
             setValue={setMatressTextInstructions}
+            index={'MatressTextInstructions'}
             onSave={() =>
               setTextValue(MatressTextInstructions, 'MatressTextInstructions')
             }
@@ -42,6 +44,7 @@ const TextValues = () => {
             placeholder="Setup Wifi Small Text"
             value={SetUpWifiSmallText}
             setValue={setSetUpWifiSmallText}
+            index={'SetUpWifiSmallText'}
             onSave={() =>
               setTextValue(SetUpWifiSmallText, 'SetUpWifiSmallText')
             }
@@ -51,6 +54,7 @@ const TextValues = () => {
             placeholder="Success Connect Matress Small Text"
             value={SuccessConnectMatress}
             setValue={setSuccessConnectMatress}
+            index={'SuccessConnectMatress'}
             onSave={() =>
               setTextValue(SuccessConnectMatress, 'SuccessConnectMatress')
             }
@@ -60,6 +64,7 @@ const TextValues = () => {
             placeholder="First Slider Small Text"
             value={FirstSlideSmallText}
             setValue={setFirstSlideSmallText}
+            index={'FirstSlideSmallText'}
             onSave={() =>
               setTextValue(FirstSlideSmallText, 'FirstSlideSmallText')
             }
@@ -69,6 +74,7 @@ const TextValues = () => {
             placeholder="Second Slider Small Text"
             value={SecondSlideSmallText}
             setValue={setSecondSlideSmallText}
+            index={'SecondSlideSmallText'}
             onSave={() =>
               setTextValue(SecondSlideSmallText, 'SecondSlideSmallText')
             }
@@ -78,6 +84,7 @@ const TextValues = () => {
             placeholder="Third Slider Small Text"
             value={ThirdSlideSmallText}
             setValue={setThirdSlideSmallText}
+            index={'ThirdSlideSmallText'}
             onSave={() =>
               setTextValue(ThirdSlideSmallText, 'ThirdSlideSmallText')
             }
