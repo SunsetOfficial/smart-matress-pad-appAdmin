@@ -23,19 +23,28 @@ const TextValuesItem = ({
   const [disabled, setDisabled] = useState(true);
 
   const getInitValue = async () => {
-    const URL =
-      'http://load-balancer-api-403884515.us-east-2.elb.amazonaws.com/static-text/';
-    const req = await fetch(URL + index, {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json',
-      },
-    });
-    const data = await req.json();
-    if (!!data.content) {
-      setValue(data.content);
-    } else {
-      setValue('');
+    try {
+      const URL =
+        'http://load-balancer-api-403884515.us-east-2.elb.amazonaws.com/static-text/';
+      const req = await fetch(URL + index, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+        },
+      });
+      const data = await req.json();
+      console.log('====================================');
+      console.log(data);
+      console.log('====================================');
+      if (!!data.content) {
+        setValue(data.content);
+      } else {
+        setValue('');
+      }
+    } catch (error) {
+      console.log('====================================');
+      console.log(error, ' MSG:   ', error.message);
+      console.log('====================================');
     }
   };
 
@@ -44,24 +53,24 @@ const TextValuesItem = ({
   }, []);
 
   const toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
     ['blockquote', 'code-block'],
     ['link', 'image', 'video', 'formula'],
-  
-    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
-    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-    [{ 'direction': 'rtl' }],                         // text direction
-  
-    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-  
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-    [{ 'font': [] }],
-    [{ 'align': [] }],
-  
-    ['clean']                                         // remove formatting button
+
+    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+    [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+    [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+    [{ direction: 'rtl' }], // text direction
+
+    [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ['clean'], // remove formatting button
   ];
 
   return (
