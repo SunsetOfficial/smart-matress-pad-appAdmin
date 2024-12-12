@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useState } from 'react';
+import axios from 'axios';
 
 interface ITextValuesItem {
   img: string;
@@ -26,21 +27,17 @@ const TextValuesItem = ({
     try {
       const URL =
         'http://load-balancer-api-403884515.us-east-2.elb.amazonaws.com/static-text/';
-      const req = await fetch(URL + index, {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json',
-        },
-      });
-      const data = await req.json();
-      console.log('====================================');
-      console.log(data);
-      console.log('====================================');
-      if (!!data.content) {
-        setValue(data.content);
-      } else {
-        setValue('');
-      }
+
+      axios
+        .get(URL + index)
+        .then((response) => response.data)
+        .then((data) => {
+          if (!!data.content) {
+            setValue(data.content);
+          } else {
+            setValue('');
+          }
+        });
     } catch (error) {
       console.log('====================================');
       console.log(error, ' MSG:   ', error.message);
