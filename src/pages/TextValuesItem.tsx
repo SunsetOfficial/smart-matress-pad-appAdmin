@@ -27,11 +27,24 @@ const TextValuesItem = ({
     try {
       const URL =
         'http://load-balancer-api-403884515.us-east-2.elb.amazonaws.com/static-text/';
+// await fetch(URL + index, {
+//         method: 'Get',
+
+//         headers: {
+//           'Content-type': 'application/json',
+//         },
+//       })
+//         .then((data) => {
+//           console.log(123333, data);
+//         });
 
       axios
         .get(URL + index)
         .then((response) => response.data)
         .then((data) => {
+          console.log('=========datadatadatadatadatadata===========================');
+          console.log(data);
+          console.log('====================================');
           if (!!data.content) {
             setValue(data.content);
           } else {
